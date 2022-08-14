@@ -1,29 +1,27 @@
 <template>
   <div>
-    <div class="searchbar">
-      <input v-model="searchText" @keyup.enter="getVideos" type="text" name="" id="" placeholder="cerca un film o serie tv">
-      <button type="submit" @click.prevent="getVideos">cerca</button>
+    <div class="searchbar d-flex justify-content-between bg-black">
+      <img src="https://image.tmdb.org/t/p/w342/wwemzKWzjKYJFfCeiB57q3r4Bcm.png" class="m-3" />
+      <div class="align-self-center m-3">
+        <input v-model="searchText" @keyup.enter="getVideos" type="text" name="" id=""
+          placeholder="cerca un film o serie tv">
+        <button type="submit" @click.prevent="getVideos">cerca</button>
+      </div>
     </div>
-    <main>
-      <ul v-for="video in videos" :key="video.id">
-        <li>{{video.title}}</li>
-        <li>{{video.originalTitle}}</li>
-        <li>
-          <FlagIcon :lang="video.language" />
-        </li>
-        <li>{{video.vote}}</li>
-      </ul>
+    <main class="d-flex flex-wrap justify-content-center">
+      <VideoCard v-for="video in videos" :key="video.id" :video="video" />
     </main>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
-import FlagIcon from './components/FlagIcon.vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import VideoCard from './components/VideoCard.vue'
 export default {
   name: 'App',
   components: {
-    FlagIcon
+    VideoCard
   },
   data () {
     return {
@@ -58,7 +56,8 @@ export default {
               title: movie.title,
               originalTitle: movie.original_title,
               language: movie.original_language,
-              vote: movie.vote_average
+              vote: movie.vote_average,
+              poster: 'https://image.tmdb.org/t/p/w342' + movie.poster_path
             }
           })
           this.videos.push(...mapped)
@@ -76,6 +75,7 @@ export default {
               title: serie.name,
               originalTitle: serie.original_name,
               language: serie.original_language,
+              poster: 'https://image.tmdb.org/t/p/w342' + serie.poster_path,
               vote: serie.vote_average
             }
           })
@@ -90,4 +90,7 @@ export default {
 
 </script>
 <style lang="scss">
+body{
+  background-color: gray;
+}
 </style>
