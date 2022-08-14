@@ -4,7 +4,7 @@
     <div class="text-white b-sm-gray h-100 text-center d-flex flex-column justify-content-center" v-if="hover">
       <h3>{{video.title}}</h3>
       <div>Titolo Originale: {{video.originalTitle}}</div>
-      <div>Lingua:
+      <div>Lingua: {{video.language}}
         <FlagIcon :lang="video.language" />
       </div>
       <div>Voto: <span v-for="n in 5" :key="'s'-n" :class="n <= stars ? 'e-yellow' : 'e-white'">★</span></div>
